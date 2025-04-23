@@ -1,0 +1,21 @@
+This project incorporates components from the projects listed below. The original copyright notices and the licenses under which Microsoft received such components are set forth below. Microsoft reserves all rights not expressly granted herein, whether by implication, estoppel or otherwise.
+
+1. Autogen (https://github.com/microsoft/autogen)
+   - License: MIT License
+   - Copyright (c) Microsoft Corporation
+
+2. Python (https://www.python.org/)
+   - License: Python Software Foundation License
+   - Copyright (c) Python Software Foundation
+
+3. Docker (https://www.docker.com/)
+   - License: Apache License 2.0
+   - Copyright (c) Docker, Inc.
+
+4. Azure SDK for Python (https://github.com/Azure/azure-sdk-for-python)
+   - License: MIT License
+   - Copyright (c) Microsoft Corporation
+
+5. Dynatrace API Client (https://www.dynatrace.com/support/help/extend-dynatrace/dynatrace-api)
+   - License: Proprietary
+   - Copyright (c) Dynatrace LLC 

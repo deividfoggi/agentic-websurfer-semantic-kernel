@@ -1,0 +1,24 @@
+{
+  "Registrations": [
+    {
+      "Component": {
+        "Type": "git",
+        "Git": {
+          "RepositoryUrl": "https://github.com/Azure-Samples/azure-aks-multi-agent-sample",
+          "CommitHash": "main"
+        }
+      },
+      "DevelopmentDependency": false
+    }
+  ],
+  "Version": 1,
+  "ProjectName": "Azure AKS Multi-Agent Sample",
+  "Description": "This project implements a multi-agent system using the Magentic-One agent from Autogen, deployed on Azure Kubernetes Service (AKS). It provides a framework for collaborative problem-solving using specialized AI agents that can interact with various Azure services including Azure OpenAI, Azure Monitor, and Dynatrace. The system demonstrates how to build and deploy AI-powered agents in a Kubernetes environment, showcasing best practices for containerization, security, and integration with Azure services.",
+  "BusinessGoals": [
+    "Demonstrate the implementation of AI-powered multi-agent systems in Azure Kubernetes Service",
+    "Showcase best practices for integrating Azure services with AI agents",
+    "Provide a reference architecture for building scalable AI solutions on Azure",
+    "Enable customers to accelerate their AI adoption by providing a production-ready sample",
+    "Illustrate how to implement secure and maintainable AI solutions in enterprise environments"
+  ]
+} 
