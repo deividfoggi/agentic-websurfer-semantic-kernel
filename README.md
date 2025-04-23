@@ -13,7 +13,7 @@ Multi-agent architecture using Magentic-One agent from Autogen
 - [License](#license)
 
 ## Overview
-This project implements a multi-agent system using the Magentic-One agent from Autogen. It provides a framework for collaborative problem-solving using specialized AI agents that can interact with various services including Azure OpenAI, Azure Monitor, and Dynatrace.
+This project implements a multi-agent system using Magentic-One from Autogen, deployed on Azure Kubernetes Service (AKS). The system monitors Dynatrace and Azure Monitor events to automatically diagnose and resolve AKS cluster issues, demonstrating how AI agents enhance Kubernetes operations.
 
 ## Prerequisites
 - Python 3.13.2
