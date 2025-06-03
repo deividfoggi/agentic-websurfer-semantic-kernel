@@ -1,5 +1,5 @@
 # MAS Multi-Agents MVP
-Multi-agent architecture using Magentic-One agent from Autogen
+Multi-agent architecture using Magentic Orchestration from Semantic Kernel
 
 ## Table of Contents
 - [Overview](#overview)
@@ -13,14 +13,13 @@ Multi-agent architecture using Magentic-One agent from Autogen
 - [License](#license)
 
 ## Overview
-This project implements a multi-agent system using Magentic-One from Autogen, deployed on Azure Kubernetes Service (AKS). The system monitors Dynatrace and Azure Monitor events to automatically diagnose and resolve AKS cluster issues, demonstrating how AI agents enhance Kubernetes operations.
+This project implements a multi-agent system using Magentic Orchestration from Semantic Kernel, deployed on Azure Kubernetes Service (AKS). The system monitors Azure Monitor events to automatically diagnose and resolve AKS cluster issues, demonstrating how AI agents enhance Kubernetes operations.
 
 ## Prerequisites
 - Python 3.13.2
 - Docker (optional)
 - Azure account with OpenAI service
-- Dynatrace account (optional)
-- Azure Monitor workspace (optional)
+- Azure Monitor workspace
 
 ## Installation
 

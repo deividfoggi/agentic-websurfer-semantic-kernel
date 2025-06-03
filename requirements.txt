@@ -3,4 +3,5 @@ uvicorn
 pydantic
 pydantic-settings
 azure-identity
+azure.monitor.query
 semantic-kernel
