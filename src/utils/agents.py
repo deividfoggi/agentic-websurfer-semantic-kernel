@@ -11,6 +11,7 @@ from utils.config import config
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from utils.prompthandler import get_prompt
 from tools.shell import Shell
+from tools.queryazmonitor import QueryAzureMonitor
 from semantic_kernel.agents.runtime import InProcessRuntime
 
 class Agents:
@@ -64,9 +65,10 @@ class Agents:
                 self.azure_monitor_specialist_prompt
             ),
             description="An Azure Monitor specialist agent that interprets natural language requests and provides insights based on Azure Monitor logs.",
+            plugins=[QueryAzureMonitor()]
         )
 
-        return [aks_specialist]
+        return [aks_specialist, azure_monitor_specialist]
         
     async def run_task(self, payload: str) -> None:
         """
