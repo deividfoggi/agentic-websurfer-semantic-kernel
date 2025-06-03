@@ -1,6 +1,7 @@
 from semantic_kernel.agents import (
     Agent,
     ChatCompletionAgent,
+    ChatHistoryAgentThread,
     MagenticOrchestration,
     StandardMagenticManager
 )
@@ -22,6 +23,8 @@ class Agents:
         self.runtime = InProcessRuntime()
         
         self.aks_specialist_prompt = get_prompt("aks_specialist")
+
+        self.thread: ChatHistoryAgentThread = None
 
         if config.environment == "dev":
             self.chat_service = AzureChatCompletion(
@@ -52,6 +55,15 @@ class Agents:
             ),
             description="A Kubernetes and Azure AKS specialist agent that interprets natural language requests and executes 'kubectl' commands via the shell tool.",
             plugins=[Shell()],
+        )
+
+        azure_monitor_specialist = ChatCompletionAgent(
+            name="azure_monitor_specialist",
+            service=self.chat_service,
+            instructions=(
+                self.azure_monitor_specialist_prompt
+            ),
+            description="An Azure Monitor specialist agent that interprets natural language requests and provides insights based on Azure Monitor logs.",
         )
 
         return [aks_specialist]

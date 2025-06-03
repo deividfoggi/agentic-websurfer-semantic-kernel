@@ -1,14 +1,13 @@
 import subprocess
-import asyncio
 from typing import Annotated
 from semantic_kernel.functions import kernel_function
 
 class Shell:
     """
-    Classe para executar comandos em um shell Linux dentro do AKS.
+    Classe para executar comandos em um shell Linux.
     """
 
-    @kernel_function(description="Executa comandos em um shell Linux dentro do AKS.")
+    @kernel_function(description="Executa comandos em um shell Linux.")
     def shell(self, command: str) -> str:
         """
         Executa comandos em um shell linux.
