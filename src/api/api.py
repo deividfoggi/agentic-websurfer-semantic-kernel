@@ -4,22 +4,25 @@ from pydantic import BaseModel
 from typing import Any, List
 from datetime import timedelta
 import json
+from utils.agents import Agents
 
-class CustomConsoleHandler:
-    """Custom handler that captures agent messages and sends them to WebSocket."""
+# class CustomConsoleHandler:
+#     """Custom handler that captures agent messages and sends them to WebSocket."""
     
-    def __init__(self, websocket):
-        self.websocket = websocket
+#     def __init__(self, websocket):
+#         self.websocket = websocket
         
-    async def __call__(self, message):
-        try:
-            # Handle unexpected message formats
-            await self.websocket.send_json({
-                "sender": message.source,
-                "text": message.content
-            })
-        except Exception as e:
-            logger.error(f"Error processing message: {str(e)}")
+#     async def __call__(self, message):
+#         try:
+#             # Handle unexpected message formats
+#             await self.websocket.send_json({
+#                 "sender": message.source,
+#                 "text": message.content
+#             })
+#         except Exception as e:
+#             #logger.error(f"Error processing message: {str(e)}")
+#             # Print the error to the console for debugging
+#             print(f"Error processing message: {str(e)}")
 
 class APIEndpoint:
     """
@@ -28,7 +31,7 @@ class APIEndpoint:
     def __init__(self):
         self.app = FastAPI()
         self.background_tasks = set()
-        self.active_connections: List[WebSocket] = []
+        #self.active_connections: List[WebSocket] = []
         
         self.setup_routes()
 
