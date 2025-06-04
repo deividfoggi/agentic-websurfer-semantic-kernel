@@ -15,6 +15,8 @@ Multi-agent architecture using Magentic Orchestration from Semantic Kernel
 ## Overview
 This project implements a multi-agent system using Magentic Orchestration from Semantic Kernel, deployed on Azure Kubernetes Service (AKS). The system monitors Azure Monitor events to automatically diagnose and resolve AKS cluster issues, demonstrating how AI agents enhance Kubernetes operations.
 
+![Azure Architecture](media/azure_architecture.png)
+
 ## Prerequisites
 - Python 3.13.2
 - Docker (optional)
@@ -56,22 +58,10 @@ ENVIRONMENT=dev
 # Azure OpenAI Configuration
 AZURE_OPENAI_DEPLOYMENT=your-deployment-name
 AZURE_OPENAI_MODEL=your-model-name
-AZURE_OPENAI_API_VERSION=2024-02-15-preview
+AZURE_OPENAI_API_VERSION=your-model-api-version
 AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com/
 AZURE_OPENAI_API_KEY=your-api-key
 LLM_MODEL_SCOPE=https://cognitiveservices.azure.com/.default
-
-# Azure Configuration
-RESOURCE_GROUP=your-resource-group
-AKS_CLUSTER_NAME=your-aks-cluster
-AZURE_MONITOR_WORKSPACE_ID=your-workspace-id
-
-# Dynatrace Configuration
-DYNATRACE_API_KEY=your-api-key
-DYNATRACE_API_ENDPOINT=https://your-environment.live.dynatrace.com
-DYNATRACE_CLIENT_ID=your-client-id
-DYNATRACE_CLIENT_SECRET=your-client-secret
-DYNATRACE_ACCOUNT_URN=your-account-urn
 ```
 
 ## Usage
