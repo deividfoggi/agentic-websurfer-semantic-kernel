@@ -57,6 +57,5 @@ logs/
 Thumbs.db
 
 # Project specific
-media/
 *.drawio.bkp
 launch.json
