@@ -17,6 +17,12 @@ This project implements a multi-agent system using Magentic Orchestration from S
 
 ![Azure Architecture](media/azure_architecture.png)
 
+### Components deployed in AKS
+
+- Webhook: service that publishes the webhook endpoint to receive the alert from Azure Monitor.
+ - mas: Multi-Agent System responsible to implement the webhook to receive the Azure Monitor alert and implement the Semantic Kernel (kernel, magentic orchestration, agents and tools).
+  - Service Account: this service account is used in the workload identity model. This service account is federated to a managed identity that could have permissions in the monitored resource, allowing for instance to execute commands like kubeclt, query azure monitor logs, etc. It allows the agents to use the Azure RBAC as a guardrail for the agents. 
+
 ## Prerequisites
 - Python 3.13.2
 - Docker (optional)
