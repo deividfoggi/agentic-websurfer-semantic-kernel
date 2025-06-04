@@ -1,4 +1,4 @@
-# MAS Multi-Agents MVP
+# Agentic AIOps with Semantic Kernel
 Multi-agent architecture using Magentic Orchestration from Semantic Kernel
 
 ## Table of Contents
