@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
   <diagram name="overview" id="24oYbbnlZCqQbWXse0kM">
-    <mxGraphModel dx="1018" dy="712" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1352" dy="1043" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -11,10 +11,10 @@
           <mxGeometry x="1260" y="337" width="250" height="143" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-36" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;" parent="1" vertex="1">
-          <mxGeometry x="860" y="510" width="220" height="190" as="geometry" />
+          <mxGeometry x="780" y="510" width="340" height="190" as="geometry" />
         </mxCell>
         <mxCell id="yCgo7jyeTwLT6z7LS6PS-24" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=3;" parent="1" vertex="1">
-          <mxGeometry x="500" y="140" width="580" height="320" as="geometry" />
+          <mxGeometry x="500" y="140" width="620" height="320" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-10" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;dashed=1;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="520" y="160" width="330" height="280" as="geometry" />
@@ -82,7 +82,7 @@
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-13" value="webhook" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=svc" parent="1" vertex="1">
           <mxGeometry x="761" y="250" width="50" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="RxVRdDs7b4XeZt4Dj1EC-14" value="mas" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=pod" parent="1" vertex="1">
+        <mxCell id="RxVRdDs7b4XeZt4Dj1EC-14" value="mas&lt;div&gt;(Semantic&lt;/div&gt;&lt;div&gt;Kernel)&lt;/div&gt;" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=pod" parent="1" vertex="1">
           <mxGeometry x="676" y="250" width="50" height="48" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.995;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;" parent="1" source="yCgo7jyeTwLT6z7LS6PS-6" target="RxVRdDs7b4XeZt4Dj1EC-13" edge="1">
@@ -119,12 +119,12 @@
           <mxGeometry x="939" y="360" width="49.86" height="47.43" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-33" value="Container&lt;div&gt;Registries&lt;/div&gt;" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/containers/Container_Registries.svg;" parent="1" vertex="1">
-          <mxGeometry x="890" y="574.5" width="68" height="61" as="geometry" />
+          <mxGeometry x="924" y="565.5" width="68" height="61" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-34" value="Key Vault" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/security/Key_Vaults.svg;" parent="1" vertex="1">
-          <mxGeometry x="978" y="571" width="68" height="68" as="geometry" />
+          <mxGeometry x="1021" y="562" width="68" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="RxVRdDs7b4XeZt4Dj1EC-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.476;entryY=0.015;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="RxVRdDs7b4XeZt4Dj1EC-32" target="RxVRdDs7b4XeZt4Dj1EC-36" edge="1">
+        <mxCell id="RxVRdDs7b4XeZt4Dj1EC-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.54;entryY=0.001;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="RxVRdDs7b4XeZt4Dj1EC-32" target="RxVRdDs7b4XeZt4Dj1EC-36" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="RxVRdDs7b4XeZt4Dj1EC-40" edge="1">
@@ -133,7 +133,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-40" value="Private DNS&lt;br&gt;Zones" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/DNS_Private_Zones.svg;" parent="1" vertex="1">
-          <mxGeometry x="1130" y="359" width="50" height="50" as="geometry" />
+          <mxGeometry x="1170" y="358.72" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="RxVRdDs7b4XeZt4Dj1EC-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="RxVRdDs7b4XeZt4Dj1EC-43" target="RxVRdDs7b4XeZt4Dj1EC-57" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -149,6 +149,9 @@
         </mxCell>
         <mxCell id="CeyR4I8Z3kuMUZ_huVE2-1" value="Azure Monitor" style="image;aspect=fixed;html=1;points=[];align=left;fontSize=12;image=img/lib/azure2/management_governance/Monitor.svg;labelPosition=right;verticalLabelPosition=middle;verticalAlign=middle;" parent="1" vertex="1">
           <mxGeometry x="1353" y="172" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="-JYptYOhrG7-lkr8nsKN-1" value="Azure OpenAI&lt;div&gt;deployed models&lt;/div&gt;" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/ai_machine_learning/Azure_OpenAI.svg;" vertex="1" parent="1">
+          <mxGeometry x="827" y="562" width="68" height="68" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
