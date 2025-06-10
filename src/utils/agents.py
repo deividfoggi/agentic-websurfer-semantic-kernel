@@ -14,6 +14,7 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from utils.prompthandler import get_prompt
 from tools.shell import Shell
 from tools.queryazmonitor import QueryAzureMonitor
+from tools.browser_navigation import BrowserNavigation  # Add this import
 from semantic_kernel.agents.runtime import InProcessRuntime
 
 # Configure logging to output to console with detailed info
@@ -80,8 +81,18 @@ class Agents:
             plugins=[QueryAzureMonitor()]
         )
 
-        logger.debug("Agents created: aks_specialist, azure_monitor_specialist")
-        return [aks_specialist, azure_monitor_specialist]
+        self.web_surfer_prompt = get_prompt("web_surfer_specialist")
+        logger.debug(f"Web Surfer Specialist prompt: {self.web_surfer_prompt}")
+        web_surfer_specialist = ChatCompletionAgent(
+            name="web_surfer_specialist",
+            service=self.chat_service,
+            instructions=self.web_surfer_prompt,
+            description="A web surfing specialist that uses Playwright to navigate and extract content from web pages.",
+            plugins=[BrowserNavigation()],
+        )
+
+        logger.debug("Agents created: aks_specialist, azure_monitor_specialist, web_surfer_specialist")
+        return [aks_specialist, azure_monitor_specialist, web_surfer_specialist]
         
     async def run_task(self, payload: str) -> None:
         """
