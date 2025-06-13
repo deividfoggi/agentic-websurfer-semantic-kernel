@@ -14,5 +14,5 @@ Considere os dados no JSON acima para a tarefa a seguir como sendo os DADOS DE E
         'evidencia-sucesso-{GUID}-{timestamp}.pdf', onde {GUID} é o identificador único da tarefa e o {timestamp} é o timestamp atual no formato YYYYMMDD-HHMMSS.
  - Se não for possível enviar o formulário, colete a evidencia no formato PDF após tentar enviar o formulário mas antes de fechar o navegador.
  - Se após 5 tentativas não for possível, informe a causa do problema e feche o navegador.
- - Os arquivos de evidencias ficam salvos em '/Users/deividfoggi/Documents/playwright-output', o agente verificador de fatos deve ter essa informação para consultar os arquivos de evidencias.
+ - Os arquivos de evidencias ficam salvos em OUTPUT_DIR, o agente verificador de fatos deve ter essa informação para consultar os arquivos de evidencias.
  - A tarefa deve ser considerada concluída somente após o agente verificador de fatores reportar o resultado, indepentente de sucesso ou falha.

@@ -7,7 +7,7 @@ from semantic_kernel.agents import (
     StandardMagenticManager,
 )
 from semantic_kernel.agents.runtime import InProcessRuntime
-from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion, OpenAIChatPromptExecutionSettings
+from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from semantic_kernel.connectors.mcp import MCPSsePlugin
 from semantic_kernel.contents import ChatMessageContent, ChatHistory
 from semantic_kernel import Kernel

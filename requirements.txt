@@ -14,3 +14,5 @@ python-dotenv
 aiofiles
 numpy
 openai
+tiktoken
+PyPDF2
