@@ -13,9 +13,7 @@ Multi-agent architecture using Magentic Orchestration from Semantic Kernel
 - [License](#license)
 
 ## Overview
-This project implements a multi-agent system using Magentic Orchestration from Semantic Kernel, deployed on Azure Kubernetes Service (AKS). The system receives a playload, for instance in JSON format to fullfil a form.
-
-![Azure Architecture](media/azure_architecture.png)
+This project implements a multi-agent system using Magentic Orchestration from Semantic Kernel, deployed on Azure Kubernetes Service (AKS). The system receives a playload, for instance in JSON format to fullfil a form based in semantic only.
 
 ### Components deployed in AKS
 
