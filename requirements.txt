@@ -3,5 +3,14 @@ uvicorn
 pydantic
 pydantic-settings
 azure-identity
+requests
 azure.monitor.query
 semantic-kernel
+semantic-kernel[mcp]
+playwright
+playwright-mcp
+mcp
+python-dotenv
+aiofiles
+numpy
+openai
