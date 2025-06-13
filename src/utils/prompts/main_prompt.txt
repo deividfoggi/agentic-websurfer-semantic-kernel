@@ -1,0 +1,18 @@
+Considere os dados no JSON acima para a tarefa a seguir como sendo os DADOS DE ENTRADA DA TAREFA:
+ - Sempre delegue a tarefa de navegação para o especialista em navegação.
+ - Os fatos devem ser verificados pelo agente especializado em verificação de fatos.
+ - Defina um identificar único para essa tarefa no formatado GUID.
+ - Defina um timestamp com base na data de hoje no formato YYYYMMDD-HHMMSS.
+ - Acesse o formulário neste link: https://fill.dev/form/credit-card-simple 
+ - Liste todos os campos do formulário e valide se os dados acima contém a informação de cada campo. 
+ - Se alguma informação não estiver presente, reporte em um arquivo de texto o nome do campo que está faltando e salve a evidencia no seguinte formato:
+        'evidencia-falha-{GUID}-{timestamp}-{nome_do_campo}.pdf', onde {GUID} é o identificador único da tarefa, {timestamp} é o timestamp atual no formato YYYYMMDD-HHMMSS e {nome_do_campo} é o nome do campo que está faltando.
+ - Nunca invente informações além das que estão nos DADOS DE ENTRADA DA TAREFA.
+ - Se os dados estiverem todos presentes, preencha o formulário e clique no no botão Pay para enviar o formulário. 
+ - Se o formulário for enviado com sucesso, uma nova página exibirá o resultado no formato JSON. Essa é a página de resposta.
+ - Quando conseguir acessar a página de resposta do formulário após o envio, obtenha uma evidencia no formato PDF e retorne o conteúdo JSON da página de resposta. O nome dos arquivos de evidencias devem ter o seguinte formato:
+        'evidencia-sucesso-{GUID}-{timestamp}.pdf', onde {GUID} é o identificador único da tarefa e o {timestamp} é o timestamp atual no formato YYYYMMDD-HHMMSS.
+ - Se não for possível enviar o formulário, colete a evidencia no formato PDF após tentar enviar o formulário mas antes de fechar o navegador.
+ - Se após 5 tentativas não for possível, informe a causa do problema e feche o navegador.
+ - Os arquivos de evidencias ficam salvos em '/Users/deividfoggi/Documents/playwright-output', o agente verificador de fatos deve ter essa informação para consultar os arquivos de evidencias.
+ - A tarefa deve ser considerada concluída somente após o agente verificador de fatores reportar o resultado, indepentente de sucesso ou falha.

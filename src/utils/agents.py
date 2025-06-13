@@ -1,23 +1,26 @@
-import logging
 import sys
 from semantic_kernel.agents import (
     Agent,
     ChatCompletionAgent,
     ChatHistoryAgentThread,
     MagenticOrchestration,
-    StandardMagenticManager
+    StandardMagenticManager,
 )
-from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
-from semantic_kernel.contents import ChatMessageContent
-from utils.config import config
+from semantic_kernel.agents.runtime import InProcessRuntime
+from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion, OpenAIChatPromptExecutionSettings
+from semantic_kernel.connectors.mcp import MCPSsePlugin
+from semantic_kernel.contents import ChatMessageContent, ChatHistory
+from semantic_kernel import Kernel
+from utils.Config import config
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from utils.prompthandler import get_prompt
-from tools.shell import Shell
-from tools.queryazmonitor import QueryAzureMonitor
-from tools.browser_navigation import BrowserNavigation  # Add this import
-from semantic_kernel.agents.runtime import InProcessRuntime
+from tools.file_manager import FileManager
+from utils.token_utils import count_tokens
+from tools.utilities_belt import UtilitiesBelt
+from utils.kernel import KernelService
+import logging
 
-# Configure logging to output to console with detailed info
+#Configure logger
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -27,18 +30,35 @@ logger = logging.getLogger("Agents")
 
 class Agents:
     """
-    Class to manage agents using MagenticOrchestration.
+    Class to manage agents using direct chat completion.
     """
 
     def __init__(self) -> None:
-        logger.debug("Initializing Agents class.")
+        self.web_surfer_agent = None
+        kernel_service = KernelService()
+        self.kernel = kernel_service.get_kernel()
+        self.chat_service = kernel_service.get_chat_service()
         self.magentic_orchestration = None
         self.runtime = InProcessRuntime()
         self.thread: ChatHistoryAgentThread = None
+        self.initialize()
 
-        logger.debug(f"Environment: {config.environment}")
+    async def initialize(self) -> None:
+        self.mcp_plugin = MCPSsePlugin(
+            name="playwright",
+            description="Playwright MCP Plugin",
+            url="http://localhost:9339/sse"
+        )
+        await self.mcp_plugin.connect()
+        logger.info("Initializing MCP plugin...")
+        self.kernel.add_plugin(self.mcp_plugin)
+        self.kernel.add_plugin(FileManager())
+        self.kernel.add_plugin(UtilitiesBelt())
+        logger.info("Tools added to the kernel.")
+
+    def _initialize_chat_service(self) -> None:
         if config.environment == "dev":
-            logger.debug("Using API key authentication for AzureChatCompletion.")
+            logger.info("Using Azure OpenAI service with API key for development environment.")
             self.chat_service = AzureChatCompletion(
                 deployment_name=config.azure_openai_deployment,
                 api_version=config.azure_openai_api_version,
@@ -46,7 +66,7 @@ class Agents:
                 api_key=config.azure_openai_api_key
             )
         else:
-            logger.debug("Using Azure AD token authentication for AzureChatCompletion.")
+            logger.info("Using Azure OpenAI service with DefaultAzureCredential for production environment.")
             token_provider = get_bearer_token_provider(
                 DefaultAzureCredential(),
                 config.llm_model_scope
@@ -57,76 +77,86 @@ class Agents:
                 endpoint=config.azure_openai_endpoint,
                 ad_token_provider=token_provider
             )
-        
-    async def agents(self) -> list[Agent]:
-        logger.debug("Building agent list.")
 
-        self.aks_specialist_prompt = get_prompt("aks_specialist")
-        logger.debug(f"AKS Specialist prompt: {self.aks_specialist_prompt}")
-        aks_specialist = ChatCompletionAgent(
-            name="aks_specialist",
-            service=self.chat_service,
-            instructions=self.aks_specialist_prompt,
-            description="A Kubernetes and Azure AKS specialist agent that interprets natural language requests and executes 'kubectl' commands via the shell tool.",
-            plugins=[Shell()],
-        )
+        logger.info("Adding chat service to the kernel...")
+        self.kernel.add_service(self.chat_service)
 
-        self.azure_monitor_specialist_prompt = get_prompt("azure_monitor_specialist")
-        logger.debug(f"Azure Monitor Specialist prompt: {self.azure_monitor_specialist_prompt}")
-        azure_monitor_specialist = ChatCompletionAgent(
-            name="azure_monitor_specialist",
-            service=self.chat_service,
-            instructions=self.azure_monitor_specialist_prompt,
-            description="An Azure Monitor specialist agent that interprets natural language requests and provides insights based on Azure Monitor logs.",
-            plugins=[QueryAzureMonitor()]
-        )
-
-        self.web_surfer_prompt = get_prompt("web_surfer_specialist")
-        logger.debug(f"Web Surfer Specialist prompt: {self.web_surfer_prompt}")
-        web_surfer_specialist = ChatCompletionAgent(
+    async def get_agents(self) -> list[Agent]:
+        logger.debug("Creating agents...")
+        web_surfer_prompt = get_prompt("web_surfer_specialist")
+        web_surfer_agent = ChatCompletionAgent(
+            kernel=self.kernel,
             name="web_surfer_specialist",
             service=self.chat_service,
-            instructions=self.web_surfer_prompt,
-            description="A web surfing specialist that uses Playwright to navigate and extract content from web pages.",
-            plugins=[BrowserNavigation()],
+            instructions=web_surfer_prompt,
+            description="Um especialista em navegação na web que utiliza as ferramentas Playwright MCP para navegar e extrair conteúdo de páginas da internet.",
         )
 
-        logger.debug("Agents created: aks_specialist, azure_monitor_specialist, web_surfer_specialist")
-        return [aks_specialist, azure_monitor_specialist, web_surfer_specialist]
-        
+        facts_checker_prompt = get_prompt("fact_checker")
+        facts_checker_agent = ChatCompletionAgent(
+            kernel=self.kernel,
+            name="fact_checker",
+            service=self.chat_service,
+            instructions=facts_checker_prompt,
+            description="Um especialista em verificação de fatos que utiliza várias ferramentas e recursos para validar informações.",
+        )
+        return [web_surfer_agent, facts_checker_agent]
+
     async def run_task(self, payload: str) -> None:
-        """
-        Runs the agent's task with the provided payload.
-        """
-        logger.info(f"Starting run_task with payload: {payload}")
         try:
-            magentic_orchestration = MagenticOrchestration(
-                members=await self.agents(),
-                manager=StandardMagenticManager(chat_completion_service=self.chat_service),
-                agent_response_callback=self._agent_response_callback
-            )
+            await self.mcp_plugin.connect()
+            members = await self.get_agents()
+            runtime = InProcessRuntime()
+            main_prompt = get_prompt("main_prompt")
+            try:
+                runtime.start()
+                payload += main_prompt
 
-            logger.debug("Starting InProcessRuntime.")
-            self.runtime.start()
+                # Truncate chat history if needed
+                if self.thread:
+                    self.thread = self._truncate_chat_history(
+                        self.thread, max_tokens=100000, model="gpt-4o"
+                    )
 
-            logger.debug("Invoking MagenticOrchestration.")
-            orchestration_result = await magentic_orchestration.invoke(
-                task=payload,
-                runtime=self.runtime
-            )
-
-            logger.debug("Awaiting orchestration result.")
-            value = await orchestration_result.get()
-            logger.info(f"Final result: {value}")
-
-            logger.debug("Stopping runtime when idle.")
-            await self.runtime.stop_when_idle()
-            logger.info("run_task completed successfully.")
+                magentic_orchestration = MagenticOrchestration(
+                    members=members,
+                    manager=StandardMagenticManager(chat_completion_service=self.chat_service),
+                    agent_response_callback=self._agent_response_callback
+                )
+                orchestration_result = await magentic_orchestration.invoke(
+                    task=payload,
+                    runtime=runtime,
+                )
+                value = await orchestration_result.get()
+                logger.info(f"Task completed successfully: {value}")
+            finally:
+                await runtime.stop_when_idle()
+                logger.info("Runtime stopped.")
         except Exception as e:
-            logger.error(f"Exception in run_task: {e}", exc_info=True)
+            if "context_length_exceeded" in str(e):
+                logger.error("Token limit exceeded. Trimming chat history and retrying...")
+                if self.thread:
+                    self.thread = self._truncate_chat_history(
+                        self.thread, max_tokens=80000, model="gpt-4o"
+                    )
+            else:
+                logger.error(f"Error in run_task: {e}")
 
     @staticmethod
-    def _agent_response_callback(message: ChatMessageContent) -> None:
-        """Observer function to print the messages from the agents and manager."""
-        logger = logging.getLogger("Agents.Callback")
-        logger.info(f"Agent/Manager Message - **{message.name}**: {message.content}")
+    def _agent_response_callback(message: ChatMessageContent, is_final: bool = False) -> None:
+       """Observer function to print the messages from the agents and manager."""
+       logger = logging.getLogger("Agents.Callback")
+       logger.info(f"Agent/Manager Message - **{message.name}**: {message.content}")
+
+    def _truncate_chat_history(self, chat_history: ChatHistory, max_tokens: int = 100000, model: str = "gpt-4o") -> ChatHistory:
+        """Trim chat history to fit within a token budget."""
+        trimmed = ChatHistory()
+        total_tokens = 0
+        for message in reversed(chat_history):
+            message_text = getattr(message, "content", "")
+            message_tokens = count_tokens(message_text, model=model)
+            if total_tokens + message_tokens > max_tokens:
+                break
+            trimmed.insert(0, message)
+            total_tokens += message_tokens
+        return trimmed

@@ -5,24 +5,17 @@ from typing import Any, List
 from datetime import timedelta
 import json
 from utils.agents import Agents
+import logging
+import sys
 
-# class CustomConsoleHandler:
-#     """Custom handler that captures agent messages and sends them to WebSocket."""
-    
-#     def __init__(self, websocket):
-#         self.websocket = websocket
-        
-#     async def __call__(self, message):
-#         try:
-#             # Handle unexpected message formats
-#             await self.websocket.send_json({
-#                 "sender": message.source,
-#                 "text": message.content
-#             })
-#         except Exception as e:
-#             #logger.error(f"Error processing message: {str(e)}")
-#             # Print the error to the console for debugging
-#             print(f"Error processing message: {str(e)}")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    stream=sys.stdout
+)
+logger = logging.getLogger("APIEndpoint")
+
+agents = Agents()
 
 class APIEndpoint:
     """
@@ -30,25 +23,23 @@ class APIEndpoint:
     """
     def __init__(self):
         self.app = FastAPI()
-        self.background_tasks = set()
-        #self.active_connections: List[WebSocket] = []
-        
+        self.background_tasks = set()        
         self.setup_routes()
 
     def setup_routes(self):
-        @self.app.post("/alert")
+        @self.app.post("/agent_task")
         async def process_payload(request: Request):
-            try:                
+            try:
+                #self.agents = Agents()
+                #await agents.initialize()
+
                 # Read the request body
                 payload = await request.json()
 
                 # Convert the JSON payload to a string
                 event_str = json.dumps(payload)
                 
-                # Initialize the Agents class instance
-                agents = Agents()
-                
-                # Create an asynchronous task to run the agent's task with the event string
+                # Use the new TaskRunner
                 task = asyncio.create_task(agents.run_task(event_str))
                 
                 # Add the created task to the set of background tasks
@@ -79,8 +70,9 @@ app = api.get_app()
 # Define an event handler for the "startup" event
 @app.on_event("startup")
 async def startup_event():
-    # Placeholder for any startup logic (currently does nothing)
-    pass
+    # Call async initialization for agents
+    await agents.initialize()
+    logger.info("Agents initialized successfully.")
 
 # Define an event handler for the "shutdown" event
 @app.on_event("shutdown")
