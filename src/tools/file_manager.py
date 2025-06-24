@@ -1,6 +1,7 @@
 import os
 from semantic_kernel.functions import kernel_function
 from PyPDF2 import PdfReader
+from utils.config import config
 
 class FileManager:
     """
@@ -17,9 +18,7 @@ class FileManager:
         Returns:
             dict: Dictionary with PDF info (number of pages, metadata, and first page text), or empty dict if reading fails.
         """
-
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
-        output_dir = os.path.join(project_root, 'output')
+        output_dir = config.output_dir
         filename = os.path.basename(file_path)
         target_path = os.path.join(output_dir, filename)
         try:
@@ -45,8 +44,7 @@ class FileManager:
         Returns:
             str: The path to the created file.
         """
-        #project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
-        output_dir = os.environ.get('OUTPUT_DIR')
+        output_dir = config.output_dir
         os.makedirs(output_dir, exist_ok=True)
         file_path = os.path.join(output_dir, filename)
         

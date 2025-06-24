@@ -12,6 +12,7 @@ class Config(BaseSettings):
     azure_openai_api_key: str = Field(..., env="AZURE_OPENAI_API_KEY")
     llm_model_scope: str = Field(..., env="LLM_MODEL_SCOPE")
     environment: str = Field(..., env="ENVIRONMENT")
+    output_dir: str = Field(..., env="OUTPUT_DIR")
     mcp_host: str = "localhost"
     mcp_port: int = 9339
 
