@@ -91,15 +91,7 @@ class Agents:
             instructions=web_surfer_prompt,
             description="Um especialista em navegação na web que utiliza as ferramentas Playwright MCP para navegar e extrair conteúdo de páginas da internet.",
         )
-
-        # facts_checker_prompt = get_prompt("fact_checker")
-        # facts_checker_agent = ChatCompletionAgent(
-        #     kernel=self.kernel,
-        #     name="fact_checker",
-        #     service=self.chat_service,
-        #     instructions=facts_checker_prompt,
-        #     description="Um especialista em verificação de fatos que utiliza várias ferramentas e recursos para validar informações.",
-        # )
+        
         return [web_surfer_agent]#, facts_checker_agent]
 
     async def run_task(self, payload: str) -> None:
