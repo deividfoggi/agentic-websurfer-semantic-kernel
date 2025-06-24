@@ -11,7 +11,7 @@ from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from semantic_kernel.connectors.mcp import MCPSsePlugin
 from semantic_kernel.contents import ChatMessageContent, ChatHistory
 from semantic_kernel import Kernel
-from utils.Config import config
+from utils.config import config
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from utils.prompthandler import get_prompt
 from tools.file_manager import FileManager
@@ -92,15 +92,15 @@ class Agents:
             description="Um especialista em navegação na web que utiliza as ferramentas Playwright MCP para navegar e extrair conteúdo de páginas da internet.",
         )
 
-        facts_checker_prompt = get_prompt("fact_checker")
-        facts_checker_agent = ChatCompletionAgent(
-            kernel=self.kernel,
-            name="fact_checker",
-            service=self.chat_service,
-            instructions=facts_checker_prompt,
-            description="Um especialista em verificação de fatos que utiliza várias ferramentas e recursos para validar informações.",
-        )
-        return [web_surfer_agent, facts_checker_agent]
+        # facts_checker_prompt = get_prompt("fact_checker")
+        # facts_checker_agent = ChatCompletionAgent(
+        #     kernel=self.kernel,
+        #     name="fact_checker",
+        #     service=self.chat_service,
+        #     instructions=facts_checker_prompt,
+        #     description="Um especialista em verificação de fatos que utiliza várias ferramentas e recursos para validar informações.",
+        # )
+        return [web_surfer_agent]#, facts_checker_agent]
 
     async def run_task(self, payload: str) -> None:
         try:

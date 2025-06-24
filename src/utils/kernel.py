@@ -3,7 +3,7 @@ import sys
 from semantic_kernel import Kernel
 from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
-from utils.Config import config
+from utils.config import config
 
 # Configure logger
 logging.basicConfig(
