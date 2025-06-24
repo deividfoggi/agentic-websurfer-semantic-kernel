@@ -31,6 +31,27 @@ class FileManager:
             return info
         except Exception:
             return {}
+        
+    @kernel_function(name="read_pdf", description="Write a PDF file to the output directory.")
+    def write_pdf(self, filename: str, content: bytes) -> str:
+        """
+        Writes the provided content to a PDF file in the output directory.
+
+        Args:
+            filename (str): The name of the file to write.
+            content (bytes): The content to write to the file.
+
+        Returns:
+            str: The path to the created file.
+        """
+        output_dir = config.output_dir
+        os.makedirs(output_dir, exist_ok=True)
+        file_path = os.path.join(output_dir, filename)
+        
+        with open(file_path, 'wb') as f:
+            f.write(content)
+        
+        return file_path
     
     @kernel_function(name="write_text_file", description="Writes text to a file in the output directory.")
     def write_text_file(self, filename: str, content: str) -> str:
@@ -64,8 +85,7 @@ class FileManager:
         Returns:
             str: The content of the file, or an empty string if reading fails.
         """
-        #project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
-        output_dir = os.path.join('/Users/deividfoggi/Documents/', 'playwright-output')
+        output_dir = config.output_dir
         file_path = os.path.join(output_dir, filename)
         
         try:
