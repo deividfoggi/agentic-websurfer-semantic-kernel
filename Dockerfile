@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM node:20-bookworm
 
 # Set working directory
 WORKDIR /app
@@ -12,6 +12,9 @@ RUN set -ex && \
         apt-transport-https \
         lsb-release \
         gnupg \
+        python3 \
+        python3-pip \
+        netcat-openbsd \
     && mkdir -p /etc/apt/keyrings \
     && curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
         gpg --dearmor | \
@@ -25,23 +28,28 @@ RUN set -ex && \
     && az --version \
     && rm -rf /var/lib/apt/lists/*
 
-# Install kubectl (with verification)
-RUN set -ex && \
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
-    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
-    && kubectl version --client
+    
+# Install npm@11.4.2
+RUN npm install -g npm@11.4.2
+
+# Install Playwright@1.53.0 with dependencies
+RUN npx -y playwright@1.53.0 install --with-deps
 
 # Copy requirements.txt first for better cache utilization
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 # Copy the rest of the application
-COPY src/ .
+COPY src/ /app/src/
+
+# Copy start.sh to the container
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Expose port 8080
 EXPOSE 8080
 
-# Command to run the application
-CMD ["python", "main.py"]
+# Command to run the application and MCP server
+CMD ["/start.sh"]
