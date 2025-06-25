@@ -15,7 +15,9 @@ Multi-agent architecture using Magentic Orchestration from Semantic Kernel
 ## Overview
 This project implements a multi-agent system using Magentic Orchestration from Semantic Kernel, deployed on a docker image. The system receives a playload, for instance in JSON format, and uses semantic to fulfill the form and collect evidence.
 
-### Components deployed in AKS
+![Overview](media/semantic_web_surfing.png)
+
+### Components deployed
 
  - Webhook: service that publishes the webhook endpoint to receive the JSON with the payload to fullfil the form.
  - mas: Multi-Agent System responsible to implement the webhook to receive the JSON with the payload and implement the Semantic Kernel (kernel, magentic orchestration, agents and tools).
