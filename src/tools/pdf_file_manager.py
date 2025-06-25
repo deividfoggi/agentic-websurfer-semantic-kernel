@@ -3,9 +3,9 @@ from semantic_kernel.functions import kernel_function
 from PyPDF2 import PdfReader
 from utils.config import config
 
-class FileManager:
+class PdfFileManager:
     """
-    FileManager provides a kernel function to work with files.
+    PdfFileManager provides a kernel function to work with PDF files.
     """
     @kernel_function(name="read_pdf", description="Reads a PDF file and returns basic information and text content.")
     def read_pdf(self, file_path: str) -> dict:
@@ -32,7 +32,7 @@ class FileManager:
         except Exception:
             return {}
         
-    @kernel_function(name="read_pdf", description="Write a PDF file to the output directory.")
+    @kernel_function(name="write_pdf", description="Write a PDF file to the output directory.")
     def write_pdf(self, filename: str, content: bytes) -> str:
         """
         Writes the provided content to a PDF file in the output directory.
@@ -52,44 +52,3 @@ class FileManager:
             f.write(content)
         
         return file_path
-    
-    @kernel_function(name="write_text_file", description="Writes text to a file in the output directory.")
-    def write_text_file(self, filename: str, content: str) -> str:
-        """
-        Writes the provided content to a text file in the output directory.
-
-        Args:
-            filename (str): The name of the file to write.
-            content (str): The content to write to the file.
-
-        Returns:
-            str: The path to the created file.
-        """
-        output_dir = config.output_dir
-        os.makedirs(output_dir, exist_ok=True)
-        file_path = os.path.join(output_dir, filename)
-        
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(content)
-        
-        return file_path
-
-    @kernel_function(name="read_text_file", description="Reads a text file and returns its content.")
-    def read_text_file(self, filename: str) -> str:
-        """
-        Reads a text file from the output directory and returns its content.
-
-        Args:
-            filename (str): The name of the file to read.
-
-        Returns:
-            str: The content of the file, or an empty string if reading fails.
-        """
-        output_dir = config.output_dir
-        file_path = os.path.join(output_dir, filename)
-        
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return f.read()
-        except Exception:
-            return ''

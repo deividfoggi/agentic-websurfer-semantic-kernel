@@ -4,14 +4,15 @@ Formulário: https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=v4j5cvGGr0
 
 Primeira etapa:
  - Solicite ao agente web surfer que acesso o formulário e apenas identifique os campos que precisam ser preenchidos, sem preencher nada.
- - Solciite que ele informe os campos identificados.
+ - Solicite que ele informe os campos identificados.
  - Você deve mapear cada propriedade com um input do formulário, sempre somente uma propriedade por campo.
 
 Segunda etapa:
  - Forneça ao agente web surfer as instruções para preencher o formulário de acordo com o mapa criado.
  - Cada campo deve ser sempre preenchido individualmente, um por vez.
+ - Siga para o preenchimento do próximo campo somente após validar o preenchimento do campo atual.
  - Um pdf deve ser gerado após o preenchdimento do ultimo campo e antes do envio do formulário.
- - Solite ao agente verificador de fatos para validar o PDF gerado.
+ - Solicite ao agente verificador de fatos para validar o PDF gerado.
  - Se o PDF estiver incorreto, proceda com as correções necessárias, solicite nova evidencia e nova verificação dos fatos.
  - Se o PDF estiver correto, solicite ao agente web surfer que clique no botão para enviar o formulário e fechar o browser.
  

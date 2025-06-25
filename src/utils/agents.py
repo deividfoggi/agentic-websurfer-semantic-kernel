@@ -14,7 +14,7 @@ from semantic_kernel import Kernel
 from utils.config import config
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from utils.prompthandler import get_prompt
-from tools.file_manager import FileManager
+from tools.pdf_file_manager import PdfFileManager
 from utils.token_utils import count_tokens
 from tools.utilities_belt import UtilitiesBelt
 from utils.kernel import KernelService
@@ -52,7 +52,7 @@ class Agents:
         await self.mcp_plugin.connect()
         logger.info("Initializing MCP plugin...")
         self.kernel.add_plugin(self.mcp_plugin)
-        self.kernel.add_plugin(FileManager())
+        self.kernel.add_plugin(PdfFileManager())
         self.kernel.add_plugin(UtilitiesBelt())
         logger.info("Tools added to the kernel.")
 
