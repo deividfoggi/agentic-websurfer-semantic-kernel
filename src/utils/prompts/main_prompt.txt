@@ -3,7 +3,7 @@ Preencha os dados recebidos do json corretamente no formulário sempre em duas e
 Formulário: https://fill.dev/form/identity-simple
 
 Primeira etapa:
- - Solicite ao agente web surfer que acesso o formulário e apenas identifique os campos que precisam ser preenchidos, sem preencher nada.
+ - Solicite ao agente web surfer que acesse o formulário e apenas identifique os campos que precisam ser preenchidos, sem preencher nada.
  - Solicite que ele informe os campos identificados.
  - Você deve mapear cada propriedade com um input do formulário, sempre somente uma propriedade por campo.
 
